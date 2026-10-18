@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}CloudNest{% endblock %}</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/"><span class="brand-icon">☁</span> CloudNest</a>
+    {% if user %}
+    <div class="top-user"><span>{{ user.username }}</span><form action="/logout" method="post"><button class="link-button" type="submit">Log out</button></form></div>
+    {% endif %}
+  </header>
+  <main class="container">{% block content %}{% endblock %}</main>
+  <footer>CloudNest · Your files, your server.</footer>
+</body>
+</html>

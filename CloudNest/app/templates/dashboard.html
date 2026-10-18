@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}My files · CloudNest{% endblock %}
+{% block content %}
+<section class="welcome">
+  <div><p class="eyebrow">PERSONAL WORKSPACE</p><h1>Your cloud, <span>{{ user.username }}</span></h1><p class="muted">Securely manage your files from one place.</p></div>
+  <div class="cloud-badge">☁ <span>Storage active</span></div>
+</section>
+<section class="stats">
+  <article class="stat-card"><span class="stat-label">TOTAL FILES</span><strong>{{ files|length }}</strong><span class="stat-foot">Stored in your cloud</span></article>
+  <article class="stat-card"><span class="stat-label">SPACE USED</span><strong>{{ "%.2f"|format(total_bytes / 1048576) }} MB</strong><span class="stat-foot">Across uploaded files</span></article>
+  <article class="stat-card"><span class="stat-label">UPLOAD LIMIT</span><strong>{{ max_upload_mb }} MB</strong><span class="stat-foot">Per file</span></article>
+</section>
+<section class="upload-panel">
+  <div class="panel-heading"><div><h2>Upload a file</h2><p class="muted">Add documents, images, code, or other files.</p></div><span class="upload-symbol">↑</span></div>
+  <form action="/files/upload" method="post" enctype="multipart/form-data" class="upload-form">
+    <label class="file-picker"><input type="file" name="upload" required><span>Choose a file from your device</span></label>
+    <button class="primary" type="submit">Upload file <span>↗</span></button>
+  </form>
+  <p class="hint">Maximum file size: {{ max_upload_mb }} MB.</p>
+</section>
+<section class="files-section">
+  <div class="section-heading"><div><h2>Your files</h2><p class="muted">Only you can see files uploaded to your account.</p></div><span class="count-pill">{{ files|length }} items</span></div>
+  {% if files %}
+  <div class="file-list">
+    {% for item in files %}
+    <article class="file-row">
+      <div class="file-icon">▤</div>
+      <div class="file-info"><strong title="{{ item.original_name }}">{{ item.original_name }}</strong><span>{{ "%.2f"|format(item.size_bytes / 1024) }} KB · {{ item.uploaded_at.strftime("%d %b %Y, %H:%M") }}</span></div>
+      <div class="file-actions"><a class="download" href="/files/{{ item.id }}/download">Download ↓</a><form action="/files/{{ item.id }}/delete" method="post" onsubmit="return confirm('Delete this file permanently?')"><button class="delete" type="submit" aria-label="Delete {{ item.original_name }}">Delete</button></form></div>
+    </article>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-state"><div class="empty-icon">▤</div><h3>No files yet</h3><p>Upload your first file to see it here.</p></div>
+  {% endif %}
+</section>
+{% endblock %}

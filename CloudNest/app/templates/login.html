@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Sign in · CloudNest{% endblock %}
+{% block content %}
+<section class="auth-wrap">
+  <div class="auth-card">
+    <div class="hero-icon">☁</div>
+    <p class="eyebrow">YOUR PERSONAL CLOUD</p>
+    <h1>Welcome back</h1>
+    <p class="muted">Sign in to access your private files.</p>
+    {% if error %}<div class="alert">{{ error }}</div>{% endif %}
+    <form method="post" action="/login" class="form-stack">
+      <label>Username<input name="username" required autocomplete="username" minlength="3"></label>
+      <label>Password<input name="password" type="password" required autocomplete="current-password"></label>
+      <button class="primary" type="submit">Sign in</button>
+    </form>
+    <p class="auth-bottom">New to CloudNest? <a href="/register">Create an account</a></p>
+  </div>
+</section>
+{% endblock %}

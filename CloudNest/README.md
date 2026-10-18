@@ -118,5 +118,5 @@ This is a learning/portfolio project, not a production-ready public cloud servic
 - Cloud deployment behind HTTPS
 
 ## Author
-
-Built as a backend and Docker learning project. Update this section with your name, GitHub profile, screenshots, and demo link before publishing.
+ARCHIT AWASTHI
+Built as a backend and Docker learning project. 
